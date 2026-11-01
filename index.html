@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>🧱壁ドンシミュレーター</title>
+    <title>🧱壁咚模拟器</title>
     <style>
         :root { --panel-width: 300px; }
-        body { margin: 0; font-family: 'Helvetica Neue', Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif; background: #ffffff; overflow: hidden; }
+        body { margin: 0; font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif; background: #ffffff; overflow: hidden; }
         
-        /* 1. スマホ表示時の設定パネルスクロール・余白の最適化 */
+        /* 1. 优化手机端设置面板的滚动与留白 */
         #ui-panel {
             position: absolute; 
             top: 10px; 
             left: 10px; 
             width: var(--panel-width);
             max-height: calc(100vh - 20px);
-            max-height: calc(100dvh - 20px); /* 可変ビューポート対応 */
+            max-height: calc(100dvh - 20px); /* 适配可变视口 */
             background: rgba(255, 255, 255, 0.95); 
             padding: 15px; 
             padding-bottom: 40px; 
@@ -46,7 +46,7 @@
             .input-group { padding: 8px; margin-bottom: 5px; }
         }
 
-        /* 2. パネル折りたたみ（「閉じる」押下）時の背景枠固定の解消 */
+        /* 2. 消除面板折叠（点击“收起”）时背景框被固定的情况 */
         #ui-panel.collapsed {
             max-height: none !important;
             padding: 10px 15px !important;
@@ -56,11 +56,11 @@
         }
 
         @media screen and (max-width: 480px) { 
-            /* スマホ表示で閉じた場合、右端の固定を解除してタイトルサイズへ収める */
+            /* 手机端收起时解除右端固定，收进标题尺寸 */
             #ui-panel.collapsed { right: auto; }
         }
 
-        /* ヘッダーをパネル上部に固定（スクロールしても上に張り付く） */
+        /* 头部固定在面板顶部（滚动时依然吸顶） */
         .panel-header { 
             display: flex; 
             justify-content: space-between; 
@@ -68,8 +68,8 @@
             cursor: pointer; 
             user-select: none; 
             gap: 10px; 
-            position: sticky; /* パネル内スクロール時も上に固定 */
-            top: -15px;       /* padding 分を相殺 */
+            position: sticky; /* 面板内滚动时同样置顶 */
+            top: -15px;       /* 抵消 padding 的高度 */
             background: rgba(255, 255, 255, 0.95);
             padding: 10px 0;
             margin: -15px -15px 10px -15px;
@@ -86,7 +86,7 @@
             background: #eee; 
             padding: 4px 10px; 
             border-radius: 10px; 
-            white-space: nowrap; /* テキストの意図しない改行を防止 */
+            white-space: nowrap; /* 防止文本意外换行 */
         }
 
         .collapsed #ui-content { display: none; }
@@ -96,7 +96,7 @@
             margin: 0; 
             color: #333; 
             font-weight: bold; 
-            white-space: nowrap; /* タイトルの改行を防止 */
+            white-space: nowrap; /* 防止标题换行 */
         }
 
         .app-description { font-size: 11px; color: #777; margin-top: 8px; margin-bottom: 5px; line-height: 1.5; text-align: center; }
@@ -156,7 +156,7 @@
         .info-value { font-weight: 800; font-size: 18px; color: #2c3e50; font-variant-numeric: tabular-nums; }
         .unit { font-size: 11px; margin-left: 3px; color: #7f8c8d; font-weight: normal; }
         
-        /* 視点ラベルの位置修正 */
+        /* 修正视角标签的位置 */
         #view-label { 
             position: absolute; 
             bottom: 20px; 
@@ -175,7 +175,7 @@
         
         input[type="range"] { width: 100%; margin: 5px 0; cursor: pointer; }
 
-        /* ボタンデザインのスタイル */
+        /* 按钮设计的样式 */
         .anim-controls {
             display: flex;
             gap: 5px;
@@ -210,72 +210,72 @@
 
 <div id="ui-panel">
     <div class="panel-header" onclick="togglePanel()">
-        <h1 class="app-title">🧱壁ドンシミュレーター</h1>
-        <span id="toggle-text">閉じる</span>
+        <h1 class="app-title">🧱壁咚模拟器</h1>
+        <span id="toggle-text">收起</span>
     </div>
 
     <div id="ui-content">
-        <p class="app-description">性別と身長から壁ドンをシミュレートします。</p>
+        <p class="app-description">可根据性别与身高模拟壁咚。</p>
         
         <div class="input-group group-a">
-            <div class="section-header"><strong>A (壁を背にする側)</strong></div>
+            <div class="section-header"><strong>A（背靠墙的一侧）</strong></div>
             <div class="input-row">
-                <div class="input-item"><span class="hint">名前</span><input type="text" id="nameA" placeholder="名前A" oninput="updateScene()"></div>
-                <div class="input-item" style="flex: 0.6;"><span class="hint">性別</span><select id="genderA" onchange="updateScene()"><option value="male">男</option><option value="female" selected>女</option></select></div>
+                <div class="input-item"><span class="hint">名字</span><input type="text" id="nameA" placeholder="名字A" oninput="updateScene()"></div>
+                <div class="input-item" style="flex: 0.6;"><span class="hint">性别</span><select id="genderA" onchange="updateScene()"><option value="male">男</option><option value="female" selected>女</option></select></div>
             </div>
             <div class="input-row">
-                <div class="input-item"><span class="hint">身長 (cm)</span><input type="number" id="heightA" value="158.0" step="0.1" oninput="updateScene()"></div>
-                <div class="input-item" style="flex: 0.35;"><span class="hint">色</span><input type="color" id="colorA" class="color-picker" value="#ffcc99" oninput="updateScene()"></div>
+                <div class="input-item"><span class="hint">身高 (cm)</span><input type="number" id="heightA" value="158.0" step="0.1" oninput="updateScene()"></div>
+                <div class="input-item" style="flex: 0.35;"><span class="hint">颜色</span><input type="color" id="colorA" class="color-picker" value="#ffcc99" oninput="updateScene()"></div>
             </div>
         </div>
 
         <div class="input-group group-b">
-            <div class="section-header"><strong>B (壁ドンする側)</strong></div>
+            <div class="section-header"><strong>B（做壁咚的一侧）</strong></div>
             <div class="input-row">
-                <div class="input-item"><span class="hint">名前</span><input type="text" id="nameB" placeholder="名前B" oninput="updateScene()"></div>
-                <div class="input-item" style="flex: 0.6;"><span class="hint">性別</span><select id="genderB" onchange="updateScene()"><option value="male" selected>男</option><option value="female">女</option></select></div>
+                <div class="input-item"><span class="hint">名字</span><input type="text" id="nameB" placeholder="名字B" oninput="updateScene()"></div>
+                <div class="input-item" style="flex: 0.6;"><span class="hint">性别</span><select id="genderB" onchange="updateScene()"><option value="male" selected>男</option><option value="female">女</option></select></div>
             </div>
             <div class="input-row">
-                <div class="input-item"><span class="hint">身長 (cm)</span><input type="number" id="heightB" value="171.5" step="0.1" oninput="updateScene()"></div>
-                <div class="input-item" style="flex: 0.35;"><span class="hint">色</span><input type="color" id="colorB" class="color-picker" value="#ffad60" oninput="updateScene()"></div>
+                <div class="input-item"><span class="hint">身高 (cm)</span><input type="number" id="heightB" value="171.5" step="0.1" oninput="updateScene()"></div>
+                <div class="input-item" style="flex: 0.35;"><span class="hint">颜色</span><input type="color" id="colorB" class="color-picker" value="#ffad60" oninput="updateScene()"></div>
             </div>
             <div class="input-item" style="margin-top: 5px;">
-                <span class="hint">ドンする手の高さ (低 ↔ 高)</span>
+                <span class="hint">咚的手的高度（低 ↔ 高）</span>
                 <input type="range" id="armHeight" min="-0.3" max="0.3" step="0.01" value="0.0" oninput="updateScene()">
             </div>
             <div class="input-item" style="margin-top: 5px;">
-                <span class="hint">壁ドンする腕</span>
+                <span class="hint">做壁咚的手臂</span>
                 <div class="anim-controls">
-                    <button id="btn-arm-right" class="btn-anim active" onclick="setArmType('right')">左手ドン</button>
-                    <button id="btn-arm-both" class="btn-anim" onclick="setArmType('both')">両手ドン</button>
-                    <button id="btn-arm-left" class="btn-anim" onclick="setArmType('left')">右手ドン</button>
+                    <button id="btn-arm-right" class="btn-anim active" onclick="setArmType('right')">左手咚</button>
+                    <button id="btn-arm-both" class="btn-anim" onclick="setArmType('both')">双手咚</button>
+                    <button id="btn-arm-left" class="btn-anim" onclick="setArmType('left')">右手咚</button>
                 </div>
             </div>
         </div>
 
         <div style="padding: 0 5px;">
-            <button class="switch-btn swap-btn" onclick="swapAB()">⇄ 役割（AとB）を入れ替える</button>
-            <button class="switch-btn" onclick="switchView()">🔄 視点を切り替える</button>
+            <button class="switch-btn swap-btn" onclick="swapAB()">⇄ 交换角色（A 与 B）</button>
+            <button class="switch-btn" onclick="switchView()">🔄 切换视角</button>
         </div>
         
         <div id="info-container">
             <div class="info-box" id="info"></div>
             <button class="share-btn" onclick="shareToX()">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>で結果をシェアする
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg> 分享结果
             </button>
             <div class="other-tools-link">
-                <p style="font-size: 10px; color: #888; margin-bottom: 8px;">こちらもチェック❣🤩</p>
-                <a href="https://qwertyaz111.github.io/my-site-hub/">ツール・シミュレーター一覧</a>
+                <p style="font-size: 10px; color: #888; margin-bottom: 8px;">顺便也看看这些❣🤩</p>
+                <a href="https://qwertyaz111.github.io/my-site-hub/">工具・模拟器合集</a>
             </div>
             <div class="usage-notes">
-                スクショ投稿や加工、トレース等はご自由にお楽しみください。<br>
-                ※営利目的や商用利用はご遠慮ください。
+                截图分享、二次加工、临摹描图等都可以随意使用。<br>
+                ※请勿用于营利、商业用途。
             </div>
         </div>
     </div>
 </div>
 
-<div id="view-label">三人称視点</div>
+<div id="view-label">第三人称视角</div>
 <div class="crosshair" id="crosshair" style="display:none;"></div>
 <div id="canvas-container"></div>
 
@@ -286,7 +286,7 @@
     let personA, personB, walkGroup, wall;
     let currentView = '3rd';
     let rotation = { x: 0.1, y: -0.4 }, camDist = 2.8, isDragging = false, previousTouch = null;
-    let currentArmType = 'right'; // 選択された腕のステート
+    let currentArmType = 'right'; // 当前选中的手臂状态
 
     function init() {
         scene = new THREE.Scene();
@@ -302,7 +302,7 @@
         scene.add(new THREE.HemisphereLight(0xffffff, 0x888888, 2.5));
         scene.add(new THREE.GridHelper(200, 400, 0xeeeeee, 0xf5f5f5));
 
-        // 壁の作成 (Aの後ろに配置、不透明度0.85で透過処理)
+        // 创建墙壁（放在 A 身后，不透明度 0.85 做半透明处理）
         const wallGeom = new THREE.BoxGeometry(10, 5, 0.2);
         const wallMat = new THREE.MeshPhongMaterial({ 
             color: 0xe0e0e0, 
@@ -330,17 +330,17 @@
             const panel = document.getElementById('ui-panel');
             const text = document.getElementById('toggle-text');
             panel.classList.toggle('collapsed');
-            text.innerText = panel.classList.contains('collapsed') ? '開く' : '閉じる';
+            text.innerText = panel.classList.contains('collapsed') ? '展开' : '收起';
         };
 
-        // 入力フォームからフォーカスが外れた際に、パネルのスクロール位置を上部へリセットする
+        // 输入框失焦时，把面板的滚动位置重置回顶部
         document.querySelectorAll('#ui-panel input, #ui-panel select').forEach(element => {
             element.addEventListener('blur', () => {
                 const panel = document.getElementById('ui-panel');
                 if (panel) {
                     panel.scrollTop = 0;
                 }
-                // iOS Safari等の画面全体のズレ防止策
+                // 防止 iOS Safari 等设备上整屏偏移的对策
                 window.scrollTo(0, 0);
             });
         });
@@ -370,7 +370,7 @@
     function setArmType(type) {
         currentArmType = type;
         
-        // ボタンのアクティブクラスの切り替え
+        // 切换按钮的激活 class
         const armTypes = ['right', 'left', 'both'];
         armTypes.forEach(t => {
             const btn = document.getElementById(`btn-arm-${t}`);
@@ -397,7 +397,7 @@
         const torsoW = (gender === 'male' ? 0.26 : 0.21) * (h/1.7);
         const torsoDepth = torsoW * 0.5;
 
-        // 頭部
+        // 头部
         const headBox = new THREE.Group(); headBox.position.y = eyeY;
         const head = new THREE.Mesh(new THREE.SphereGeometry(headH * 0.8, 16, 16), bodyMat);
         head.position.y = (h - headH * 0.5) - eyeY; headBox.add(head);
@@ -408,15 +408,15 @@
         group.add(headBox);
         group.headParts = headBox;
 
-        // 首
+        // 颈部
         const neck = new THREE.Mesh(new THREE.CylinderGeometry(headH*0.3, headH*0.3, neckH, 16), bodyMat);
         neck.position.y = h - headH - (neckH * 0.5); group.add(neck);
 
-        // 体
+        // 身体
         const torso = new THREE.Mesh(new THREE.BoxGeometry(torsoW, torsoH, torsoDepth), bodyMat);
         torso.position.y = legH + (torsoH * 0.5); group.add(torso);
 
-        // 腕
+        // 手臂
         group.arms = [];
         [-1, 1].forEach((side, idx) => {
             const anchor = new THREE.Group();
@@ -426,7 +426,7 @@
             mesh.position.y = -armLen * 0.5; anchor.add(mesh); group.add(anchor); group.arms.push(anchor);
         });
 
-        // 足
+        // 腿部
         group.legs = [];
         [-1, 1].forEach(side => {
             const anchor = new THREE.Group(); anchor.position.set(side * (torsoW * 0.25), legH, 0);
@@ -434,7 +434,7 @@
             mesh.position.y = -legH * 0.5; anchor.add(mesh); group.add(anchor); group.legs.push(anchor);
         });
 
-        // ネームタグ
+        // 名字标签
         const canvas = document.createElement('canvas'); canvas.width = 512; canvas.height = 128;
         const ctx = canvas.getContext('2d'); ctx.font = "bold 45px sans-serif"; ctx.fillStyle = "#333"; ctx.textAlign = "center";
         const displayName = name || (role === 'B' ? 'B' : 'A');
@@ -461,38 +461,38 @@
         personA = createMannequin(document.getElementById('colorA').value, hA, document.getElementById('genderA').value, document.getElementById('nameA').value, 'A');
         personB = createMannequin(document.getElementById('colorB').value, hB, document.getElementById('genderB').value, document.getElementById('nameB').value, 'B');
         
-        // --- A（壁を背にする側）の配置とポーズ ---
+        // --- A（背靠墙一侧）的位置与姿势 ---
         personA.position.set(0, 0, personA.userData.depth * 0.5);
-        // Aの腕が後ろに引けないようにX軸の傾きを0（まっすぐ下ろす）に設定
+        // 为避免 A 的手臂后拉，把 X 轴倾斜设为 0（笔直下垂）
         personA.arms[0].rotation.set(0, 0, -0.05); 
         personA.arms[1].rotation.set(0, 0, 0.05);  
 
-        // --- B（壁ドンする側）の配置とポーズ ---
+        // --- B（做壁咚一侧）的位置与姿势 ---
         personB.rotation.y = Math.PI;
 
-        // まっすぐに立たせる（前傾をなくす）
+        // 站直（去掉前倾）
         personB.rotation.x = 0; 
         personB.position.x = 0; 
         personB.position.y = 0;
 
         const armLen = personB.userData.armLen;
         
-        // 右にスライド（プラス方向）で高くなり、左にスライド（マイナス方向）で低くなるように符号を調整
+        // 调整正负号：向右滑动（正方向）变高，向左滑动（负方向）变低
         let primaryArmAngleX = -Math.PI / 2 - armHeightOffset;
 
-        // 壁の前面位置（Z座標）は -0.1 (BoxGeometry奥行き0.2、中心0、表面は-0.1)
+        // 墙壁正面位置（Z 坐标）为 -0.1（BoxGeometry 深度 0.2、中心 0、表面为 -0.1）
         const wallSurfaceZ = -0.1;
 
-        // 体にめり込まないように外側に逃がす動的計算
+        // 动态计算，避免陷进身体而向外偏移
         const wA = personA.userData.width;
         const wB = personB.userData.width;
-        const armW = wB * 0.3; // 腕の太さ
-        const safeX = (wA * 0.5) + (armW * 0.5) + 0.03; // 安全な横位置
-        const shoulderX = wB * 0.6; // Bの肩のX位置
+        const armW = wB * 0.3; // 手臂的粗细
+        const safeX = (wA * 0.5) + (armW * 0.5) + 0.03; // 安全的横向位置
+        const shoulderX = wB * 0.6; // B 肩膀的 X 位置
 
         let maxExtraZAngle = 0.0;
 
-        // 腕ごとに回転角を計算
+        // 逐条手臂计算旋转角
         const armAngles = personB.arms.map((arm, i) => {
             const isLeft = (i === 0);
             let doWallDon = false;
@@ -510,7 +510,7 @@
                     const neededShift = safeX - shoulderX;
                     const extraAngle = Math.atan2(neededShift, armLen * 0.7);
                     baseZAngle += extraAngle;
-                    // 最大の追加角度を記録
+                    // 记录最大的附加角度
                     if (extraAngle > maxExtraZAngle) {
                         maxExtraZAngle = extraAngle;
                     }
@@ -521,12 +521,12 @@
             }
         });
 
-        // 壁ドンする手が壁にちょうど接するようにBの立ち位置(Z)を逆算
-        const effectiveZAngle = 0.1 + maxExtraZAngle; // 外側に開いた最大角度
+        // 反推 B 的站立位置(Z)，让做壁咚的手刚好碰到墙
+        const effectiveZAngle = 0.1 + maxExtraZAngle; // 向外张开的最大角度
         const handLocalZ = armLen * Math.sin(primaryArmAngleX) * Math.cos(effectiveZAngle);
         personB.position.z = wallSurfaceZ - handLocalZ;
 
-        // 計算したポーズを各腕に適用
+        // 把计算好的姿势应用到各条手臂
         personB.arms.forEach((arm, i) => {
             const angles = armAngles[i];
             arm.rotation.x = angles.x;
@@ -536,8 +536,8 @@
 
         walkGroup.add(personA, personB);
 
-        // --- お互いの目（頭部パーツ）を見つめ合わせる（視線を一直線上にする） ---
-        walkGroup.updateMatrixWorld(true); // 正確な座標を取得するためにワールド行列を更新
+        // --- 让彼此的眼睛（头部部件）互相注视（视线连成一条直线） ---
+        walkGroup.updateMatrixWorld(true); // 更新世界矩阵以获取准确坐标
         const eyeWorldA = new THREE.Vector3();
         const eyeWorldB = new THREE.Vector3();
         personA.headParts.getWorldPosition(eyeWorldA);
@@ -549,13 +549,13 @@
         const nA = document.getElementById('nameA').value||'A', nB = document.getElementById('nameB').value||'B';
         if(currentView !== '3rd') {
             const myName = (currentView === 'A') ? nA : nB;
-            document.getElementById('view-label').innerText = `${myName} の視点`;
+            document.getElementById('view-label').innerText = `${myName} 的视角`;
             if(currentView === 'A') { personA.headParts.visible = false; personA.nameTag.visible = false; }
             if(currentView === 'B') { personB.headParts.visible = false; personB.nameTag.visible = false; }
         }
 
         document.getElementById('info').innerHTML = `
-            <div class="info-row"><span class="info-label">📏 身長差</span><span class="info-value">${Math.abs(hA-hB).toFixed(1)}<span class="unit">cm</span></span></div>
+            <div class="info-row"><span class="info-label">📏 身高差</span><span class="info-value">${Math.abs(hA-hB).toFixed(1)}<span class="unit">cm</span></span></div>
         `;
     }
 
@@ -573,26 +573,26 @@
             );
             camera.lookAt(centerPos);
         } else {
-            // 一人称視点（AまたはBの視点）
+            // 第一人称视角（A 或 B 的视角）
             const self = (currentView === 'A' ? personA : personB);
             const other = (currentView === 'A' ? personB : personA);
             
-            // 首元の回転や傾きなどを反映しつつ直立（upはY軸固定）
+            // 在反映颈部旋转与倾斜的同时保持直立（up 固定为 Y 轴）
             camera.up.set(0, 1, 0);
 
-            // 目の位置を設定
+            // 设置眼睛的位置
             const eyePos = new THREE.Vector3(0, self.userData.eyeY, 0.02);
             eyePos.applyQuaternion(self.quaternion);
             camera.position.copy(self.position).add(eyePos);
             
-            // 相手の目の位置（ターゲット）を算出
+            // 计算对方眼睛的位置（目标点）
             const targetEyePos = new THREE.Vector3(0, other.userData.eyeY, 0).applyQuaternion(other.quaternion).add(other.position);
             camera.lookAt(targetEyePos);
             
-            // ドラッグによるカメラの回転オフセットを適用（上下：rotation.x, 左右：rotation.y）
+            // 应用拖拽产生的相机旋转偏移（上下：rotation.x，左右：rotation.y）
             camera.rotateX(rotation.x);
             camera.rotateY(rotation.y);
-            camera.rotation.z = 0; // ロール回転を防止
+            camera.rotation.z = 0; // 防止翻滚旋转
         }
         renderer.render(scene, camera);
     }
@@ -602,7 +602,7 @@
         const move = (dx, dy) => {
             rotation.y -= dx * 0.005; 
             rotation.x -= dy * 0.005;
-            // 上下方向の回転範囲制限（真上・真下を向いたときに破誕しないようにロックを制限）
+            // 限制上下方向的旋转范围（避免朝向正上方或正下方时画面崩坏）
             rotation.x = Math.max(-Math.PI/2.1, Math.min(Math.PI/2.1, rotation.x));
         };
 
@@ -614,7 +614,7 @@
 
         c.addEventListener('wheel', e => {
             if (currentView === '3rd') {
-                // 三人称視点：カメラの距離(camDist)を直接増減
+                // 第三人称视角：直接增减相机距离(camDist)
                 camDist += e.deltaY * 0.002;
                 camDist = Math.max(0.5, Math.min(10, camDist));
             }
@@ -626,7 +626,7 @@
                 previousTouch = e.touches[0];
                 initialPinchDist = null;
             } else if (e.touches.length === 2 && currentView === '3rd') {
-                // ピンチ操作開始時の指の間の距離を測定
+                // 测量捏合开始时两指之间的距离
                 initialPinchDist = Math.hypot(
                     e.touches[0].clientX - e.touches[1].clientX,
                     e.touches[0].clientY - e.touches[1].clientY
@@ -653,7 +653,7 @@
                 previousTouch = touch;
             } else if (e.touches.length === 2 && initialPinchDist !== null && currentView === '3rd') {
                 if (e.cancelable) e.preventDefault();
-                // ピンチ操作：三人称視点の場合のみ、距離を調整
+                // 捏合操作：仅在第三人称视角下调整距离
                 const currentDist = Math.hypot(
                     e.touches[0].clientX - e.touches[1].clientX,
                     e.touches[0].clientY - e.touches[1].clientY
@@ -671,10 +671,10 @@
         const nA = document.getElementById('nameA').value||'A', nB = document.getElementById('nameB').value||'B';
         
         if (currentView === '3rd') {
-            document.getElementById('view-label').innerText = '三人称視点';
+            document.getElementById('view-label').innerText = '第三人称视角';
         } else {
             const myName = (currentView === 'A') ? nA : nB;
-            document.getElementById('view-label').innerText = `${myName} の視点`;
+            document.getElementById('view-label').innerText = `${myName} 的视角`;
         }
         
         document.getElementById('crosshair').style.display = currentView === '3rd' ? 'none' : 'block';
@@ -699,11 +699,78 @@
         const nB = document.getElementById('nameB').value || 'B';
         const hA = parseFloat(document.getElementById('heightA').value) || 158.0;
         const hB = parseFloat(document.getElementById('heightB').value) || 171.5;
-        const text = `${nB}(${hB.toFixed(1)}cm)が${nA}(${hA.toFixed(1)}cm)に壁ドン！\n#壁ドンシミュレーター\n`;
+        const text = `${nB}（${hB.toFixed(1)}cm）把 ${nA}（${hA.toFixed(1)}cm）壁咚了！\n#壁咚模拟器\n`;
         window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`, '_blank');
     }
 
     init();
+</script>
+
+<script>
+/* 设置持久化：名字・身高・颜色等会记住，刷新后自动恢复 */
+(function () {
+  var KEY = 'simSettings:' + location.pathname;
+  var SKIP = { seek: 1, pVol: 1 };
+  function list() {
+    var els = document.querySelectorAll('input,select,textarea'), out = [], i, el;
+    for (i = 0; i < els.length; i++) {
+      el = els[i];
+      if (el.type === 'file' || el.type === 'button' || el.type === 'submit' || el.type === 'reset') continue;
+      if (el.id && SKIP[el.id]) continue;
+      out.push(el);
+    }
+    return out;
+  }
+  function keyOf(el) {
+    if (el.id) return 'id:' + el.id;
+    var cn = (el.className || '').split(/\s+/)[0];
+    if (!cn) return null;
+    var sibs = document.querySelectorAll(el.tagName.toLowerCase() + '[class~="' + cn + '"]'), i;
+    for (i = 0; i < sibs.length; i++) if (sibs[i] === el) return 'cls:' + cn + ':' + i;
+    return null;
+  }
+  function get(el) {
+    return (el.type === 'checkbox' || el.type === 'radio') ? el.checked : el.value;
+  }
+  function set(el, v) {
+    var i;
+    if (el.tagName === 'SELECT') {
+      var ok = false;
+      for (i = 0; i < el.options.length; i++) if (el.options[i].value === v) ok = true;
+      if (!ok) return;
+    }
+    if (el.type === 'checkbox' || el.type === 'radio') el.checked = !!v;
+    else el.value = v;
+  }
+  function fire(el, type) {
+    try { el.dispatchEvent(new Event(type, { bubbles: true })); } catch (e) {}
+  }
+  function restore() {
+    var raw = null, data = null, els, k, i;
+    try { raw = localStorage.getItem(KEY); } catch (e) { return; }
+    if (!raw) return;
+    try { data = JSON.parse(raw); } catch (e) { return; }
+    els = list();
+    for (i = 0; i < els.length; i++) { k = keyOf(els[i]); if (k && data[k] !== undefined) set(els[i], data[k]); }
+    for (i = 0; i < els.length; i++) { fire(els[i], 'input'); fire(els[i], 'change'); }
+    for (i = 0; i < els.length; i++) { k = keyOf(els[i]); if (k && data[k] !== undefined) set(els[i], data[k]); }
+  }
+  var timer = null;
+  function save() {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(function () {
+      var els = list(), data = {}, k, i;
+      for (i = 0; i < els.length; i++) { k = keyOf(els[i]); if (k) data[k] = get(els[i]); }
+      try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) {}
+    }, 200);
+  }
+  document.addEventListener('input', save, true);
+  document.addEventListener('change', save, true);
+  window.addEventListener('load', restore);
+  window.__simSettings = {
+    clear: function () { try { localStorage.removeItem(KEY); } catch (e) {} }
+  };
+})();
 </script>
 </body>
 </html>
